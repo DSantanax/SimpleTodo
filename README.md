@@ -24,7 +24,7 @@ The following **additional** features are implemented: --- In progress... ---
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://i.imgur.com/lbU1ZPI.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='SimpleTodoApp.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
