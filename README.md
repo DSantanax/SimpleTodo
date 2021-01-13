@@ -31,7 +31,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 ## Notes
 
 As this was my first time programming in Android Studio, previously I did use other JetBrain applications, I had to get familiar with the interface and the funcionality of the application. 
-Also, it was my first time progamming and Android Application which did require me to look for further information and documentation about the RecycleView which did require extensive amount 
+Also, it was my first time progamming an Android Application which did require me to look for further information and documentation about the RecycleView thus requiring an extensive amount 
 of time to understand how the Adapter, View, ViewHolder, & LayoutManager work together along with the RecycleView. Overall, I did enjoy the introductory application & will be doing the optional 
 features and any further UI advancements. 
 
