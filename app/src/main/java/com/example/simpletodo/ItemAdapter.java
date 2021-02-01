@@ -19,12 +19,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 // Create the basic adapter extending from RecyclerView.Adapter
 // Note that we specify the custom ViewHolder which gives us access to our views
-public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>  {
+public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     // member variable - used to fill the adapter with items
     List<String> items;
     //  member variable - refer to the OnLongClickListener
     OnLongClickListener longClickListener;
+    // member variable - refer to the OnClickListener
+    OnClickListener onClickListener;
 
     // we nee to pass info from main activity to item adapter
     // can do this by defining an interface in ItemsAdapter that the MainActivity will implement
@@ -37,20 +39,26 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>  {
         void onItemLongClick(int position);
     }
 
+    public interface OnClickListener {
+        void onItemOnClick(int position);
+    }
+
     // main piece of info we need is data about the model
     // in our case the list of strings
     // we also need to take the longClickListener to notify the ViewHolder
-    public ItemAdapter(List<String> items, OnLongClickListener longClickListener) {
+    public ItemAdapter(List<String> items, OnLongClickListener longClickListener, OnClickListener onClickListener) {
         this.items = items;
         // set this to the passed param from MainActivity to use it
         this.longClickListener = longClickListener;
+        // this is set to the passed param from Main Activity to use it
+        this.onClickListener = onClickListener;
     }
 
 /*
     need to override all three methods for the Adapter
  */
 
-//    onCreateViewHolder to inflate the item layout and create the holder
+    //    onCreateViewHolder to inflate the item layout and create the holder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -67,7 +75,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>  {
         return new ViewHolder(todoView);
     }
 
-//    to set the view attributes based on the data to put into a ViewHolder
+    //    to set the view attributes based on the data to put into a ViewHolder
     // responsible to bind data to a particular view holder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
@@ -77,7 +85,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>  {
         holder.bind(item);
     }
 
-//    to determine the number of items available in the data
+    //    to determine the number of items available in the data
     // this tells the RV how many items are in the list
     @Override
     public int getItemCount() {
@@ -93,7 +101,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>  {
         TextView tvItem;
 
         // We also create a constructor that accepts the entire item row
-        public ViewHolder(@NonNull View itemView){
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             // we use the View from the android R built in to find the text1 and assign it to the tvItem TextView
             tvItem = itemView.findViewById(android.R.id.text1);
@@ -104,6 +112,12 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>  {
             // set the text for the text view
             tvItem.setText(item);
 
+            // set OnClickListener for the single tap
+            tvItem.setOnClickListener(l -> {
+                // we notify the listener that which position as the one long pressed
+                onClickListener.onItemOnClick(getAdapterPosition());
+
+            });
 //            set an OnLongClick listener for the item
             tvItem.setOnLongClickListener(l -> {
                 // we notify the listener that which position as the one long pressed
